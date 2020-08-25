@@ -76,7 +76,7 @@ function plotEndorserOrg() {
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:$(($PORT+1))
       - CORE_PEER_GOSSIP_BOOTSTRAP=${PNAME}.${ORG_LOWER}.${DOMAIN}:${PORT}
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PNAME}.${ORG_LOWER}.${DOMAIN}:${PORT}
-      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_LOCALMSPID=${ORG}MSP
     volumes:
         - /var/run/:/host/var/run/
         - ${MSP_PATH}:/etc/hyperledger/fabric/msp
