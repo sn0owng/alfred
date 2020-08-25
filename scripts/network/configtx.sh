@@ -146,3 +146,5 @@ for counter in $(seq 0 $TOTAL_CHANNELS); do
     CHANNEL_OBJ=$(cat $CONFIG | jq -r ".channels[$counter]")
     plotChannel
 done
+
+cp $TEMPLATES/core.yaml $CONFIGTX_PATH/core.yaml

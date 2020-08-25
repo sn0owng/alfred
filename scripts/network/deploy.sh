@@ -12,5 +12,7 @@ ${PARENTH_PATH}/scripts/network/genesis.sh
 ### GENERATE COMPOSE FILE AND UP CONTAINERS
 ${PARENTH_PATH}/scripts/network/docker.sh
 
+sleep 20
+
 ### GENERATE COMPOSE FILE AND UP CONTAINERS
 ${PARENTH_PATH}/scripts/network/channel.sh

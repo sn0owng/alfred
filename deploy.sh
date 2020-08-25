@@ -20,8 +20,12 @@ for counter in $(seq 0 $TOTAL_ORGS); do
     ${PARENTH_PATH}/scripts/ca/deploy.sh
 done
 
+sleep 10
+
 ### GENERATE NETWORK ARTIFACTS
 ${PARENTH_PATH}/scripts/network/deploy.sh
+
+sleep 10
 
 ### DEPLOY CHAINCODE
 ${PARENTH_PATH}/scripts/chaincode/deploy.sh

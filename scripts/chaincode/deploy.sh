@@ -61,9 +61,11 @@ for counter in $(seq 0 $TOTAL_CHAINCODES); do
         export CORE_PEER_ADDRESS=localhost:${PEER_PORT}
 
         ### INSTALL CHAINCODE
-        peer lifecycle chaincode install $CHAINCODE_TAR_PATH
+        peer lifecycle chaincode install $CHAINCODE_TAR_PATH 
 
-        CC_PACKAGE_ID="fabcar:311f9358a4d3d645048df35f522cae91487606972c05efbaf8bf0e4f1a5d866f"
+        peer lifecycle chaincode queryinstalled >&/tmp/pkg.txt
+
+        CC_PACKAGE_ID=$(sed -n "/${CHAINCODE_NAME}/{s/^Package ID: //; s/, Label:.*$//; p;}" /tmp/pkg.txt)
 
         ### APROVE CHAINCODE
         peer lifecycle chaincode approveformyorg -o localhost:${ORDERER_PORT} \
