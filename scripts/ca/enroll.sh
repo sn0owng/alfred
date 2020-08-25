@@ -66,16 +66,16 @@ function plotConfig() {
   echo "NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/localhost-${PORT}-ca-${ORG_LOWER}.pem
+    Certificate: cacerts/localhost-${PORT}-ca-${NAME_LOWER}.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/localhost-${PORT}-ca-${ORG_LOWER}.pem
+    Certificate: cacerts/localhost-${PORT}-ca-${NAME_LOWER}.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/localhost-${PORT}-ca-${ORG_LOWER}.pem
+    Certificate: cacerts/localhost-${PORT}-ca-${NAME_LOWER}.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/localhost-${PORT}-ca-${ORG_LOWER}.pem
+    Certificate: cacerts/localhost-${PORT}-ca-${NAME_LOWER}.pem
     OrganizationalUnitIdentifier: orderer" > ${FABRIC_CA_CLIENT_HOME}/msp/config.yaml
 }
 

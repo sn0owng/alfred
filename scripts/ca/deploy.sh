@@ -39,6 +39,8 @@ function createUsers() {
 ### CREATE FILES AND CONTAINER
 ${PARENTH_PATH}/scripts/ca/files.sh
 
+sleep 10
+
 ### DO BASIC ENROLL
 initialEnroll
 

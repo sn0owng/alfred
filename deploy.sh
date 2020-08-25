@@ -12,10 +12,13 @@ export PARENTH_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
 ### CALCULATE THE NUMBER OF ORGS
 TOTAL_ORGS=$(cat $CONFIG| jq -r '.orgs' | jq length)
-TOTAL_ORGS=$(($TOTAL_ORGS-1))
+export TOTAL_ORGS=$(($TOTAL_ORGS-1))
 
 ### CREATE CA AND CERTS
 for counter in $(seq 0 $TOTAL_ORGS); do
     export ORG=$(cat $CONFIG | jq -r ".orgs[$counter]")
-    ${PARENTH_PATH}/scripts/ca/deploy.sh
+    # ${PARENTH_PATH}/scripts/ca/deploy.sh
 done
+
+### GENERATE NETWORK ARTIFACTS
+${PARENTH_PATH}/scripts/network/deploy.sh
