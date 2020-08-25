@@ -1,0 +1,111 @@
+{
+    "basePath": "/home/guilherme/Coding/hyperledger/refactornet",
+    "binPath": "/home/guilherme/Coding/hyperledger/basenet/bin",
+    "templates": "/home/guilherme/Coding/hyperledger/hyper/template",
+    "orgs": [
+        {
+            "name": "Orderer",
+            "domain": "example.com",
+            "peer": {
+                "name": "orderer",
+                "port": 55005,
+                "type": "Orderer"
+            },
+            "ca": {
+                "port": 5458,
+                "adminusr": "admin",
+                "adminpw": "adminpw"
+            },
+            "users": [
+                {
+                    "user": "ordererAdmin",
+                    "password": "ordererAdminpw",
+                    "type": "admin"
+                },
+                {
+                    "user": "orderer",
+                    "password": "ordererpw",
+                    "type": "orderer"
+                }
+            ]
+        },
+        {
+            "name": "Org1",
+            "domain": "example.com",
+            "peer": {
+                "name": "peer0",
+                "port": 55010,
+                "type": "Endorser"
+            },
+            "ca": {
+                "port": 7458,
+                "adminusr": "admin",
+                "adminpw": "adminpw"
+            },
+            "users": [
+                {
+                    "user": "user1",
+                    "password": "user1pw",
+                    "type": "client"
+                },
+                {
+                    "user": "org1admin",
+                    "password": "org1adminpw",
+                    "type": "admin"
+                },
+                {
+                    "user": "peer0",
+                    "password": "peer0pw",
+                    "type": "peer"
+                }
+            ]
+        },
+        {
+            "name": "Org2",
+            "domain": "example.com",
+            "peer": {
+                "name": "peer0",
+                "port": 55015,
+                "type": "Endorser"
+            },
+            "ca": {
+                "port": 9458,
+                "adminusr": "admin",
+                "adminpw": "adminpw"
+            },
+            "users": [
+                {
+                    "user": "user1",
+                    "password": "user1pw",
+                    "type": "client"
+                },
+                {
+                    "user": "org2admin",
+                    "password": "org2adminpw",
+                    "type": "admin"
+                },
+                {
+                    "user": "peer0",
+                    "password": "peer0pw",
+                    "type": "peer"
+                }
+            ]
+        }
+    ],
+    "genesis": {
+        "name": "TwoOrgsOrdererGenesis",
+        "consortiums": [
+            {
+                "name": "SampleConsortium",
+                "orgs": ["Org1","Org2"]
+            }
+        ]
+    },
+    "channels": [
+        {
+            "name": "TwoOrgsChannel",
+            "consortium": "SampleConsortium",
+            "orgs": ["Org1","Org2"]
+        }
+    ]
+}
