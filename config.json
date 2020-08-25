@@ -107,5 +107,14 @@
             "consortium": "SampleConsortium",
             "orgs": ["Org1","Org2"]
         }
+    ],
+    "chaincodes": [
+        {
+            "name": "fabcar",
+            "path": "/home/guilherme/Coding/hyperledger/fabric-samples/chaincode/fabcar/javascript/",
+            "lang": "node",
+            "version": 1,
+            "channel": "TwoOrgsChannel"
+        }
     ]
 }
