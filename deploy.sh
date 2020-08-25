@@ -22,7 +22,7 @@ done
 
 sleep 10
 
-### GENERATE NETWORK ARTIFACTS
+# ### GENERATE NETWORK ARTIFACTS
 ${PARENTH_PATH}/scripts/network/deploy.sh
 
 sleep 10

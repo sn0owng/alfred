@@ -73,6 +73,8 @@ for counter in $(seq 0 $TOTAL_CHAINCODES); do
         --channelID ${CHAINCODE_CHANNEL_LOWER} --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION}.0 \
         --package-id $CC_PACKAGE_ID --sequence ${CHAINCODE_VERSION} --tls \
         --cafile $ORDERER_TLS
+
+        ### INCREMENT PEERS
         PEERS="${PEERS} --peerAddresses ${CORE_PEER_ADDRESS} --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE}"
     done
 
