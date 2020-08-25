@@ -33,19 +33,23 @@ ORDERER_TLS=$BASE_PATH/${ORDERER_NAME_LOWER}.${ORDERER_DOMAIN}/tlsca/tlsca.${ORD
 ### BASIC SETTINGS
 export CORE_PEER_TLS_ENABLED=true
 
-### DO ANYTHING FOR EACH CHANNEL
+### CREATE EACH CHANNEL
 for counter in $(seq 0 $TOTAL_CHANNELS); do
+
     CHANNEL_OBJ=$(cat $CONFIG | jq -r ".channels[$counter]")
     CHANNEL=$(echo "$CHANNEL_OBJ" | jq -r '.name')
     CHANNEL_LOWER=$(echo "$CHANNEL" | tr '[:upper:]' '[:lower:]')
 
-    # generateChannelTx
+    generateChannelTx
 
-    ### GENERATE ORGS ANCHORS
+    ### CALCULATE TOTAL ORGS ON CONSORT
     TOTAL_ORGS_CONSORT=$(echo $CHANNEL_OBJ | jq -r '.orgs' | jq length)
     TOTAL_ORGS_CONSORT=$(($TOTAL_ORGS_CONSORT - 1))
+    
+    ### GENERATE ORGS ANCHORS
     for orgCounter in $(seq 0 $TOTAL_ORGS_CONSORT); do
-        ### RECOVER ORG INFOS
+
+        ### RECOVER ORG INFO
         ORG=$(echo $CHANNEL_OBJ | jq -r ".orgs[$orgCounter]")
         ORG_OBJ=$(cat $CONFIG | jq -r ".orgs[] | select(.name==\"${ORG}\")")
         ORG_NAME=$(echo $ORG_OBJ | jq -r '.name')
@@ -55,23 +59,26 @@ for counter in $(seq 0 $TOTAL_CHANNELS); do
         PEER_NAME=$(echo $ORG_OBJ | jq -r '.peer.name')
         PEER_PORT=$(echo $ORG_OBJ | jq -r '.peer.port')
 
-        ### SET TOOLS CONFIGS
+        ### SET TOOLS CONFIG
         export CORE_PEER_LOCALMSPID="${ORG_NAME}MSP"
         export CORE_PEER_TLS_ROOTCERT_FILE=${ORG_HOME}/peers/${PEER_NAME}.${ORG_NAME_LOWER}.${ORG_DOMAIN}/tls/ca.crt
         export CORE_PEER_MSPCONFIGPATH=${ORG_HOME}/users/${ORG_NAME_LOWER}admin@${ORG_NAME_LOWER}.${ORG_DOMAIN}/msp
         export CORE_PEER_ADDRESS=localhost:${PEER_PORT}
 
+        ### CREATE CHANNEL
         if [[ -z $CREATED ]]; then
-            # createChannel
+            createChannel
             CREATED="OK"
         fi
-        #   generateAnchoorPeer
-        ### JOIN PEER ON NETWORK
-        # peer channel join -b $ARTIFACTS_PATH/channels/$CHANNEL_LOWER/$CHANNEL_LOWER.block
-        ### UPDATE ANCHOR PEER
-        # peer channel update -o localhost:${ORDERER_PORT} \
-        #     --ordererTLSHostnameOverride ${ORDERER_PEER}.${ORDERER_NAME}.${ORDERER_DOMAIN} \
-        #     -c $CHANNEL_LOWER -f $ARTIFACTS_PATH/channels/$CHANNEL_LOWER/${ORG_NAME}MSPanchors.tx \
-        #     --tls --cafile $ORDERER_TLS
+
+        ### GENERATE ANCHOR PEER TX
+        generateAnchoorPeer
+        ### JOIN PEER ON CHANNEL
+        peer channel join -b $ARTIFACTS_PATH/channels/$CHANNEL_LOWER/$CHANNEL_LOWER.block
+        ### UPDATE ANCHOR PEER ON CHANNEL
+        peer channel update -o localhost:${ORDERER_PORT} \
+            --ordererTLSHostnameOverride ${ORDERER_PEER}.${ORDERER_NAME}.${ORDERER_DOMAIN} \
+            -c $CHANNEL_LOWER -f $ARTIFACTS_PATH/channels/$CHANNEL_LOWER/${ORG_NAME}MSPanchors.tx \
+            --tls --cafile $ORDERER_TLS
     done
 done

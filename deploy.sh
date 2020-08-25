@@ -21,4 +21,6 @@ for counter in $(seq 0 $TOTAL_ORGS); do
 done
 
 ### GENERATE NETWORK ARTIFACTS
-${PARENTH_PATH}/scripts/network/deploy.sh
+# ${PARENTH_PATH}/scripts/network/deploy.sh
+
+### DEPLOY CHAINCODE
