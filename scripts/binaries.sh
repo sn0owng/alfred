@@ -75,4 +75,4 @@ echo "Pull Hyperledger Fabric binaries"
 echo
 pullBinaries
 
-rm -rf config
+rm -rf $PARENTH_PATH/config

@@ -1,15 +1,3 @@
-### SET SCRIPT PATH
-export PARENTH_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-
-### EXPORT BASE VARS
-export CONFIG=$1
-export BASE_PATH=$(cat $CONFIG | jq -r '.basePath')
-export TEMPLATES=${PARENTH_PATH}/template
-
-### EXPORT TOOLS
-BIN_PATH=${PARENTH_PATH}/bin
-export PATH=${BIN_PATH}:$PATH
-
 ### CALCULATE THE NUMBER OF ORGS
 TOTAL_ORGS=$(cat $CONFIG| jq -r '.orgs' | jq length)
 export TOTAL_ORGS=$(($TOTAL_ORGS-1))
