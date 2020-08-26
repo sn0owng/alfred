@@ -12,20 +12,20 @@ function config() {
    ### COPY TEMPLATE
    cp $TEMPLATES/fabric-ca-template.yaml $CONFIG_FILE
    ### CHANGE TEMPLATE VALUES
-   sed -i'' "s/<CA_PORT>/$CA_PORT/" $CONFIG_FILE
+   sed -i'' -e "s/<CA_PORT>/$CA_PORT/" $CONFIG_FILE
    sed -i'' -e "0,/<ORG_NAME>/ s/<ORG_NAME>/$NAME/" $CONFIG_FILE
-   sed -i'' "s/<ORG_NAME>/$NAME_LOWER/" $CONFIG_FILE
-   sed -i'' "s/<ORG_DOMAIN>/$DOMAIN/" $CONFIG_FILE
+   sed -i'' -e "s/<ORG_NAME>/$NAME_LOWER/" $CONFIG_FILE
+   sed -i'' -e "s/<ORG_DOMAIN>/$DOMAIN/" $CONFIG_FILE
 }
 
 function compose() {
   ### COPY TEMPLATE
   cp $TEMPLATES/fabric-ca-compose-template.yaml $COMPOSE
   ### CHANGE TEMPLATE VALUES
-  sed -i'' "s/<CA_PORT>/$PORT/" $COMPOSE
-  sed -i'' "s/<CA_PORT>/$PORT/" $COMPOSE
-  sed -i'' "s/<ORG_NAME>/$NAME_LOWER/" $COMPOSE
-  sed -i'' "s,<CA_FOLDER>,$CA_HOME," $COMPOSE
+  sed -i'' -e "s/<CA_PORT>/$PORT/" $COMPOSE
+  sed -i'' -e "s/<CA_PORT>/$PORT/" $COMPOSE
+  sed -i'' -e "s/<ORG_NAME>/$NAME_LOWER/" $COMPOSE
+  sed -i'' -e "s,<CA_FOLDER>,$CA_HOME," $COMPOSE
 }
 
 function up() {
