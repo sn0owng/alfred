@@ -1,7 +1,5 @@
 {
     "basePath": "/home/guilherme/Coding/hyperledger/refactornet",
-    "binPath": "/home/guilherme/Coding/hyperledger/basenet/bin",
-    "templates": "/home/guilherme/Coding/hyperledger/hyper/template",
     "orgs": [
         {
             "name": "Orderer",
