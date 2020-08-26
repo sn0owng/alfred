@@ -32,6 +32,9 @@ case $TYPE in
 "deploy")
     $PARENTH_PATH/scripts/deploy.sh
     ;;
+"cc")
+    $PARENTH_PATH/scripts/chaincode/deploy.sh
+    ;;
 "bin")
     $PARENTH_PATH/scripts/binaries.sh
     ;;
