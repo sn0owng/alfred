@@ -12,8 +12,9 @@
 # Configurando o deploy
 
 - Acesse o config.json e altere o `basepath`, a partir dele é que serão instalados os nós da rede.
-  Obs: Caso seja deixado em branco, o script irá criar a rede no diretório do repósitorio, dentro da pasta "/network"
+  Obs: Caso seja deixado em branco, o script irá criar a rede no diretório do repositório, dentro da pasta "/network"
 - Também pode-se adicionar novos consórcios, usuários, canais e chaincodes.
+- Pode-se deixar o path do chaincode em branco, sendo apenas necessário colocar ele na pasta `chaincodes` do repositório em uma pasta com o mesmo nome que o chaincode.
 
 # Realizando o deploy
 
