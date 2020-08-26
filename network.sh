@@ -17,7 +17,11 @@ while [[ $# -ge 1 ]]; do
     case $key in
     -c)
         export readonly CONFIG="$2"
-        export readonly BASE_PATH=$(cat $CONFIG | jq -r '.basePath')
+        BASE_PATH=$(cat $CONFIG | jq -r '.basePath')
+        if [[ "$BASE_PATH" == "" ]]; then
+            BASE_PATH=${PARENTH_PATH}/network
+        fi
+        export readonly BASE_PATH
         shift
         ;;
     esac
