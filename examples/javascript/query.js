@@ -12,7 +12,7 @@ const fs = require('fs');
 
 
 
-async function main() {
+exports.main = async ()  => {
     try {
         // load the network configuration
         const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'org1.example.com', 'connection-org1.json');
@@ -58,4 +58,4 @@ async function main() {
     }
 }
 
-main();
+// main();
