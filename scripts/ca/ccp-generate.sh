@@ -24,4 +24,4 @@ function yaml_ccp {
 PEERPEM=${ORG_HOME}/tlsca/tlsca.${NAME_LOWER}.${DOMAIN}-cert.pem
 CAPEM=${ORG_HOME}/ca/ca.${NAME_LOWER}.${DOMAIN}.pem
 
-echo "$(yaml_ccp $PEERPEM $CAPEM)" > ${ORG_HOME}/connection-org1.yaml
+echo "$(yaml_ccp $PEERPEM $CAPEM)" > ${ORG_HOME}/connection-${NAME_LOWER}.yaml
