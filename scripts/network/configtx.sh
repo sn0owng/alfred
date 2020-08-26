@@ -7,20 +7,20 @@ echo "Organizations:" > $CONFIGTX_FILE
 
 ### FUNCTIONS
 function plotBaseNode() {
-    echo "    - &<ORG_NAME>
-        Name: <ORG_NAME>Org
-        ID: <ORG_NAME>MSP
-        MSPDir: <ORG_MSP_PATH>
+    echo "    - &${ORG}
+        Name: ${ORG}Org
+        ID: ${ORG}MSP
+        MSPDir: ${ORG_HOME}/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: \"OR('<ORG_NAME>MSP.member')\"
+                Rule: \"OR('${ORG}MSP.member')\"
             Writers:
                 Type: Signature
-                Rule: \"OR('<ORG_NAME>MSP.member')\"
+                Rule: \"OR('${ORG}MSP.member')\"
             Admins:
                 Type: Signature
-                Rule: \"OR('<ORG_NAME>MSP.admin')\"" >> $CONFIGTX_FILE
+                Rule: \"OR('${ORG}MSP.admin')\"" >> $CONFIGTX_FILE
 }
 
 ## DO ANYTHING FOR EACH ORG
@@ -36,31 +36,16 @@ for counter in $(seq 0 $TOTAL_ORGS); do
     PORT=$(echo $ORG_OBJ | jq -r '.peer.port')
     ### GENFILE
     plotBaseNode
-    sed -i'' -e "s/<ORG_NAME>/$ORG/" $CONFIGTX_FILE
-    sed -i'' -e "s,<ORG_MSP_PATH>,$ORG_HOME/msp," $CONFIGTX_FILE
     if [[ $ORG_TYPE == "Orderer" ]]; then
         echo "        OrdererEndpoints:
-            - <PEER_NAME>.<ORG_NAME>.<DOMAIN>:<PORT>" >> $CONFIGTX_FILE
-        sed -i'' -e "s/<PEER_NAME>/$PNAME/" $CONFIGTX_FILE
-        sed -i'' -e "s/<ORG_NAME>/$ORG_LOWER/" $CONFIGTX_FILE
-        sed -i'' -e "s/<DOMAIN>/$DOMAIN/" $CONFIGTX_FILE
-        sed -i'' -e "s/<PORT>/$PORT/" $CONFIGTX_FILE
+            - ${PNAME}.${ORG_LOWER}.${DOMAIN}:${PORT}" >> $CONFIGTX_FILE
     else
         echo "            Endorsement:
                 Type: Signature
-                Rule: \"OR('<ORG_NAME>MSP.peer')\"
+                Rule: \"OR('${ORG}MSP.peer')\"
         AnchorPeers:
-            - Host: <PEER_NAME>.<ORG_NAME>.<DOMAIN>
-              Port: <PORT>" >> $CONFIGTX_FILE
-        
-        sed -i'' -e "0,/<ORG_NAME>/ s/<ORG_NAME>/$ORG/" $CONFIGTX_FILE
-        sed -i'' -e "0,/<ORG_NAME>/ s/<ORG_NAME>/$ORG_LOWER/" $CONFIGTX_FILE
-
-        sed -i'' -e "s/<PEER_NAME>/$PNAME/" $CONFIGTX_FILE
-
-        sed -i'' -e "s/<DOMAIN>/$DOMAIN/" $CONFIGTX_FILE
-        
-        sed -i'' -e "s/<PORT>/$PORT/" $CONFIGTX_FILE
+            - Host: ${PNAME}.${ORG_LOWER}.${DOMAIN}
+              Port: ${PORT}" >> $CONFIGTX_FILE
     fi
 done
 
