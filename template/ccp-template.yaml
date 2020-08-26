@@ -1,0 +1,35 @@
+---
+name: test-network-<ORG_LOWER>
+version: 1.0.0
+client:
+  organization: <ORG>
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  <ORG>:
+    mspid: <ORG>MSP
+    peers:
+    - <PEER_NAME>.<ORG_LOWER>.<ORG_DOMAIN>
+    certificateAuthorities:
+    - ca.<ORG_LOWER>.<ORG_DOMAIN>
+peers:
+  <PEER_NAME>.<ORG_LOWER>.<ORG_DOMAIN>:
+    url: grpcs://localhost:<PEER_PORT>
+    tlsCACerts:
+      pem: |
+          <PEERPEM>
+    grpcOptions:
+      ssl-target-name-override: <PEER_NAME>.<ORG_LOWER>.<ORG_DOMAIN>
+      hostnameOverride: <PEER_NAME>.<ORG_LOWER>.<ORG_DOMAIN>
+certificateAuthorities:
+  ca.<ORG_LOWER>.<ORG_DOMAIN>:
+    url: https://localhost:<CAPORT>
+    caName: ca-<ORG_LOWER>
+    tlsCACerts:
+      pem: 
+        - |
+          <CAPEM>
+    httpOptions:
+      verify: false

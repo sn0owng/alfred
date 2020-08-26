@@ -36,13 +36,16 @@ function createUsers() {
   done
 }
 
-### CREATE FILES AND CONTAINER
-${PARENTH_PATH}/scripts/ca/files.sh
+# ### CREATE FILES AND CONTAINER
+# ${PARENTH_PATH}/scripts/ca/files.sh
 
-sleep 10
+# sleep 10
 
-### DO BASIC ENROLL
-initialEnroll
+# ### DO BASIC ENROLL
+# initialEnroll
 
-### REGISTER AND ENROLL USERS
-createUsers
+# ### REGISTER AND ENROLL USERS
+# createUsers
+
+### GENERATE CCP
+${PARENTH_PATH}/scripts/ca/ccp-generate.sh
