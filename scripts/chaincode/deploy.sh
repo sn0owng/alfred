@@ -33,6 +33,10 @@ for counter in $(seq 0 $TOTAL_CHAINCODES); do
     CHAINCODE_CHANNEL_LOWER=$(echo "$CHAINCODE_CHANNEL" | tr '[:upper:]' '[:lower:]')
     CHAINCODE_TAR_PATH=/tmp/${CHAINCODE_NAME}.tar.gz
 
+    if [[ "$CHAINCODE_PATH" == "" ]]; then
+        CHAINCODE_PATH=${PARENTH_PATH}/chaincodes/${CHAINCODE_NAME}
+    fi
+
     ### PACKAGE CHAINCODE
     package
 
