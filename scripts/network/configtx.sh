@@ -36,15 +36,15 @@ for counter in $(seq 0 $TOTAL_ORGS); do
     PORT=$(echo $ORG_OBJ | jq -r '.peer.port')
     ### GENFILE
     plotBaseNode
-    sed -i "s/<ORG_NAME>/$ORG/" $CONFIGTX_FILE
-    sed -i "s,<ORG_MSP_PATH>,$ORG_HOME/msp," $CONFIGTX_FILE
+    sed -i'' -e "s/<ORG_NAME>/$ORG/" $CONFIGTX_FILE
+    sed -i'' -e "s,<ORG_MSP_PATH>,$ORG_HOME/msp," $CONFIGTX_FILE
     if [[ $ORG_TYPE == "Orderer" ]]; then
         echo "        OrdererEndpoints:
             - <PEER_NAME>.<ORG_NAME>.<DOMAIN>:<PORT>" >> $CONFIGTX_FILE
-        sed -i "s/<PEER_NAME>/$PNAME/" $CONFIGTX_FILE
-        sed -i "s/<ORG_NAME>/$ORG_LOWER/" $CONFIGTX_FILE
-        sed -i "s/<DOMAIN>/$DOMAIN/" $CONFIGTX_FILE
-        sed -i "s/<PORT>/$PORT/" $CONFIGTX_FILE
+        sed -i'' -e "s/<PEER_NAME>/$PNAME/" $CONFIGTX_FILE
+        sed -i'' -e "s/<ORG_NAME>/$ORG_LOWER/" $CONFIGTX_FILE
+        sed -i'' -e "s/<DOMAIN>/$DOMAIN/" $CONFIGTX_FILE
+        sed -i'' -e "s/<PORT>/$PORT/" $CONFIGTX_FILE
     else
         echo "            Endorsement:
                 Type: Signature
@@ -53,14 +53,14 @@ for counter in $(seq 0 $TOTAL_ORGS); do
             - Host: <PEER_NAME>.<ORG_NAME>.<DOMAIN>
               Port: <PORT>" >> $CONFIGTX_FILE
         
-        sed -i -e "0,/<ORG_NAME>/ s/<ORG_NAME>/$ORG/" $CONFIGTX_FILE
-        sed -i -e "0,/<ORG_NAME>/ s/<ORG_NAME>/$ORG_LOWER/" $CONFIGTX_FILE
+        sed -i'' -e "0,/<ORG_NAME>/ s/<ORG_NAME>/$ORG/" $CONFIGTX_FILE
+        sed -i'' -e "0,/<ORG_NAME>/ s/<ORG_NAME>/$ORG_LOWER/" $CONFIGTX_FILE
 
-        sed -i "s/<PEER_NAME>/$PNAME/" $CONFIGTX_FILE
+        sed -i'' -e "s/<PEER_NAME>/$PNAME/" $CONFIGTX_FILE
 
-        sed -i "s/<DOMAIN>/$DOMAIN/" $CONFIGTX_FILE
+        sed -i'' -e "s/<DOMAIN>/$DOMAIN/" $CONFIGTX_FILE
         
-        sed -i "s/<PORT>/$PORT/" $CONFIGTX_FILE
+        sed -i'' -e "s/<PORT>/$PORT/" $CONFIGTX_FILE
     fi
 done
 
@@ -74,11 +74,11 @@ PNAME=$(echo $ORDERER | jq -r '.peer.name')
 PORT=$(echo $ORDERER | jq -r '.peer.port')
 TLS=$BASE_PATH/${ORG_LOWER}.${DOMAIN}/peers/${ORG_LOWER}.${ORG_LOWER}.${DOMAIN}/tls/server.crt
 
-sed -i "s/<PEER_NAME>/$PNAME/" $CONFIGTX_FILE
-sed -i "s/<ORDER_ORG>/$ORG_LOWER/" $CONFIGTX_FILE
-sed -i "s/<ORDER_PORT>/$PORT/" $CONFIGTX_FILE
-sed -i "s/<ORDER_DOMAIN>/$DOMAIN/" $CONFIGTX_FILE
-sed -i "s,<ORDER_TLS_CERT>,$TLS," $CONFIGTX_FILE
+sed -i'' -e "s/<PEER_NAME>/$PNAME/" $CONFIGTX_FILE
+sed -i'' -e "s/<ORDER_ORG>/$ORG_LOWER/" $CONFIGTX_FILE
+sed -i'' -e "s/<ORDER_PORT>/$PORT/" $CONFIGTX_FILE
+sed -i'' -e "s/<ORDER_DOMAIN>/$DOMAIN/" $CONFIGTX_FILE
+sed -i'' -e "s,<ORDER_TLS_CERT>,$TLS," $CONFIGTX_FILE
 
 ### PLOT GENESIS
 GENESIS_NAME=$(cat $CONFIG | jq -r '.genesis.name')
