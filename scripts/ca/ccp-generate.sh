@@ -7,6 +7,20 @@ function one_line_pem {
     echo "`awk 'NF {sub(/\\n/, ""); printf "%s\\\\\\\n",$0;}' $1`"
 }
 
+function json_ccp {
+    local PP=$(one_line_pem $1)
+    local CP=$(one_line_pem $2)
+    sed -e "s/<ORG_LOWER>/$NAME_LOWER/" \
+        -e "s/<ORG>/$NAME/" \
+        -e "s/<ORG_DOMAIN>/$DOMAIN/" \
+        -e "s/<PEER_NAME>/$PEER_NAME/" \
+        -e "s/<PEER_PORT>/$PEER_PORT/" \
+        -e "s/<CAPORT>/$PORT/" \
+        -e "s#<PEERPEM>#$PP#" \
+        -e "s#<CAPEM>#$CP#" \
+        ${TEMPLATES}/ccp-template.json
+}
+
 function yaml_ccp {
     local PP=$(one_line_pem $1)
     local CP=$(one_line_pem $2)
@@ -24,4 +38,5 @@ function yaml_ccp {
 PEERPEM=${ORG_HOME}/tlsca/tlsca.${NAME_LOWER}.${DOMAIN}-cert.pem
 CAPEM=${ORG_HOME}/ca/ca.${NAME_LOWER}.${DOMAIN}.pem
 
+echo "$(json_ccp $PEERPEM $CAPEM)" > ${ORG_HOME}/connection-${NAME_LOWER}.json
 echo "$(yaml_ccp $PEERPEM $CAPEM)" > ${ORG_HOME}/connection-${NAME_LOWER}.yaml
