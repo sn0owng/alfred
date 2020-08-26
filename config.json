@@ -111,7 +111,7 @@
             "name": "fabcar",
             "path": "",
             "lang": "node",
-            "sequence": 2,
+            "sequence": 1,
             "version": "1.0",
             "channel": "TwoOrgsChannel"
         }
