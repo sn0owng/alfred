@@ -31,6 +31,9 @@ case $TYPE in
 "bin")
     $PARENTH_PATH/scripts/binaries.sh
     ;;
+"clean")
+    $PARENTH_PATH/scripts/clean.sh
+    ;;
 *)
     echo "Unknow option $TYPE"
     ;;

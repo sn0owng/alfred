@@ -21,6 +21,13 @@
     ./network.sh deploy -c config.json
     ```
 
+# Limpando a rede
+
+- Execute o script `network.sh` passando como argumento o arquivo de configuração. Exemplo:
+    ```
+    ./network.sh clean -c config.json
+    ```
+
 # Limitações
 
 - No momento só se pode ter um Orderer

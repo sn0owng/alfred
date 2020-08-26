@@ -111,7 +111,8 @@
             "name": "fabcar",
             "path": "/home/guilherme/Coding/hyperledger/fabric-samples/chaincode/fabcar/javascript/",
             "lang": "node",
-            "version": 1,
+            "sequence": 1,
+            "version": "1.0",
             "channel": "TwoOrgsChannel"
         }
     ]
