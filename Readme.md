@@ -25,3 +25,4 @@
 - Não é possível alterar canais após criados
 - Não é possível realizar o update de chaincodes
 - Não é possível realizar o deploy de novos chaincodes após a rede ter sido criada
+- Chaincodes que utilizem private data ainda não são compatíveis com a solução
