@@ -81,4 +81,6 @@ for counter in $(seq 0 $TOTAL_CHANNELS); do
             -c $CHANNEL_LOWER -f $ARTIFACTS_PATH/channels/$CHANNEL_LOWER/${ORG_NAME}MSPanchors.tx \
             --tls --cafile $ORDERER_TLS
     done
+
+    unset CREATED
 done

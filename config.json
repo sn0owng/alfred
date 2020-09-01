@@ -56,7 +56,10 @@
                     "password": "peer0pw",
                     "type": "peer"
                 }
-            ]
+            ],
+            "couchDB":{
+                "port":5984
+            }
         },
         {
             "name": "Org2",
@@ -87,23 +90,82 @@
                     "password": "peer0pw",
                     "type": "peer"
                 }
-            ]
+            ],
+            "couchDB":{
+                "port":6984
+            }
+        },
+        {
+            "name": "Org3",
+            "domain": "example.com",
+            "peer": {
+                "name": "peer0",
+                "port": 55020,
+                "type": "Endorser"
+            },
+            "ca": {
+                "port": 11458,
+                "adminusr": "admin",
+                "adminpw": "adminpw"
+            },
+            "users": [
+                {
+                    "user": "user1",
+                    "password": "user1pw",
+                    "type": "client"
+                },
+                {
+                    "user": "org3admin",
+                    "password": "org3adminpw",
+                    "type": "admin"
+                },
+                {
+                    "user": "peer0",
+                    "password": "peer0pw",
+                    "type": "peer"
+                }
+            ],
+            "couchDB":{
+                "port":8984
+            }
         }
     ],
     "genesis": {
         "name": "TwoOrgsOrdererGenesis",
         "consortiums": [
             {
-                "name": "SampleConsortium",
+                "name": "BasicConsort",
+                "orgs": ["Org1","Org2","Org3"]
+            }
+            ,{
+                "name": "Org1Org2Consort",
                 "orgs": ["Org1","Org2"]
+            },
+            {
+                "name": "Org1Org3Consort",
+                "orgs": ["Org1","Org3"]
+            },
+            {
+                "name": "Org2Org3Consort",
+                "orgs": ["Org2","Org3"]
             }
         ]
     },
     "channels": [
         {
-            "name": "TwoOrgsChannel",
-            "consortium": "SampleConsortium",
+            "name": "Org1Org2Channel",
+            "consortium": "BasicConsort",
             "orgs": ["Org1","Org2"]
+        },
+        {
+            "name": "Org1Org3Channel",
+            "consortium": "BasicConsort",
+            "orgs": ["Org1","Org3"]
+        },
+        {
+            "name": "Org2Org3Channel",
+            "consortium": "BasicConsort",
+            "orgs": ["Org2","Org3"]
         }
     ],
     "chaincodes": [
@@ -113,7 +175,7 @@
             "lang": "node",
             "sequence": 1,
             "version": "1.0",
-            "channel": "TwoOrgsChannel"
+            "channel": "Org1Org2Channel"
         }
     ]
 }

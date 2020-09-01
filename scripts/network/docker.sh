@@ -18,6 +18,7 @@ function initVars() {
     ORG_HOME=${BASE_PATH}/${ORG_LOWER}.${DOMAIN}
     PNAME=$(echo $ORG_OBJ | jq -r '.peer.name')
     PORT=$(echo $ORG_OBJ | jq -r '.peer.port')
+    PORT_COUCHDB=$(echo $ORG_OBJ | jq -r '.couchDB.port')
     PEER_FOLDER=${ORG_HOME}/peers/${PNAME}.${ORG_LOWER}.${DOMAIN}
     MSP_PATH=${PEER_FOLDER}/msp
     TLS_PATH=${PEER_FOLDER}/tls
@@ -77,6 +78,11 @@ function plotEndorserOrg() {
       - CORE_PEER_GOSSIP_BOOTSTRAP=${PNAME}.${ORG_LOWER}.${DOMAIN}:${PORT}
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PNAME}.${ORG_LOWER}.${DOMAIN}:${PORT}
       - CORE_PEER_LOCALMSPID=${ORG}MSP
+
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb${ORG}:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
     volumes:
         - /var/run/:/host/var/run/
         - ${MSP_PATH}:/etc/hyperledger/fabric/msp
@@ -85,6 +91,22 @@ function plotEndorserOrg() {
     command: peer node start
     ports:
       - ${PORT}:${PORT}
+    depends_on: 
+      - couchdb${ORG}
+    networks:
+      - test" >> $DOCKER_PATH/network-compose.yaml
+}
+
+function setCouchDB() {
+
+    echo "  couchdb${ORG}:
+    container_name: couchdb${ORG}
+    image: hyperledger/fabric-couchdb
+    environment:
+      - COUCHDB_USER=
+      - COUCHDB_PASSWORD=
+    ports:
+      - ${PORT_COUCHDB}:5984
     networks:
       - test" >> $DOCKER_PATH/network-compose.yaml
 }
@@ -96,6 +118,7 @@ for counter in $(seq 0 $TOTAL_ORGS); do
     plotOrdererService
    else
     plotEndorserOrg
+    setCouchDB
    fi
 done
 
