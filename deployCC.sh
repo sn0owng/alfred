@@ -121,7 +121,6 @@ function deployChainCode(){
             if [ $SEQUENCE -gt "1" ];then
                 validateVersion $CHAINCODE_VERSION
             fi            
-            
             packageChaincode $CHAINCODE_NAME $SEQUENCE $CHAINCODE_VERSION $CHAINCODE_PATH $ORG_NAME
         fi
 
@@ -130,7 +129,7 @@ function deployChainCode(){
 
         ### APROVE CHAINCODE
         echo "APPROVING THE CHAINCODE BY ORG $ORG_NAME"
-        PACKAGE_ID=$(peer lifecycle chaincode queryinstalled | grep -i $CHAINCODE_NAME)
+        PACKAGE_ID=$(peer lifecycle chaincode queryinstalled | grep -i $CHAINCODE_NAME_$CHAINCODE_VERSION)
         CC_PACKAGE_ID=$(echo $PACKAGE_ID | cut -d ' ' -f3)
 
         ## SEE IF IT'S PRIVATE OR NOT
