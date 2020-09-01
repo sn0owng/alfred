@@ -56,7 +56,10 @@
                     "password": "peer0pw",
                     "type": "peer"
                 }
-            ]
+            ],
+            "couchDB":{
+                "port":5984
+            }
         },
         {
             "name": "Org2",
@@ -87,7 +90,10 @@
                     "password": "peer0pw",
                     "type": "peer"
                 }
-            ]
+            ],
+            "couchDB":{
+                "port":6984
+            }
         },
         {
             "name": "Org3",
@@ -118,7 +124,10 @@
                     "password": "peer0pw",
                     "type": "peer"
                 }
-            ]
+            ],
+            "couchDB":{
+                "port":8984
+            }
         }
     ],
     "genesis": {
