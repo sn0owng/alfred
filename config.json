@@ -157,6 +157,11 @@
             "name": "Org2Org3Channel",
             "consortium": "BasicConsort",
             "orgs": ["Org2","Org3"]
+        },
+        {
+            "name": "Org1Org2Org3Channel",
+            "consortium": "BasicConsort",
+            "orgs": ["Org1","Org2","Org3"]
         }
     ],
     "chaincodes": [
