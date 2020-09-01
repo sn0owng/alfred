@@ -29,6 +29,19 @@
     ```
     ./network.sh clean -c config.json
     ```
+# Hotdeploy Chaincode
+
+- Para realizar o hot deployment de um **CHAINCODE** basta utilizar o script `deployCC.sh` passando como parametro:
+   - Nome do chaincode ( -na ) - Obrigatório
+   - Caminhao do chaincode ( -p ) - Obrigatório
+   - Canal do chaincode ( -c ) - Obrigatório
+   - Versão do chaincode ( -v ) - Opcional
+   - Indicação da utilização de Private Date / Caminho do Private Data ( --private ) Opcional
+
+  Os comandos acima devem estar na ordem para funcionarem
+
+- Para realizar um upgrade de um **CHAINCODE** é necessario apenas executar o script passando o mesmo **nome** do chaincode com uma versão diferente. Neste caso o uso da **versão** se torna obrigatório. 
+
 
 # Limitações
 

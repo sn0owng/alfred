@@ -13,7 +13,7 @@ ORDERER_PORT=$(echo $ORDERER | jq -r '.peer.port')
 ORDERER_TLS=$PWD/network/${ORDERER_NAME_LOWER}.${ORDERER_DOMAIN}/tlsca/tlsca.${ORDERER_NAME_LOWER}.${ORDERER_DOMAIN}-cert.pem
 
 function helpMessage(){
-    echo "Para dar UPDATE não esqueça de enviar um NAMESPACE ( -n ) já existente e uma VERSÃO DIFERENTE ( -v ) - A sequencia é feita automaticamente"
+    echo "Para dar UPDATE não esqueça de enviar um NAMESPACE ( -na ) já existente e uma VERSÃO DIFERENTE ( -v ) - A sequencia é feita automaticamente"
     echo "Devem ser enviados os seguintes parametros em sequencia (primeiro mostrado para o ultimo)"
     echo " -na >> Representa o NOME do chaincode (Obrigatório)"
     echo " -p >> Representa o PATH do chaincode (Obrigatório)"
